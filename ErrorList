@@ -1,0 +1,11 @@
+Exception in thread "main" java.lang.UnsupportedClassVersionError: org/openqa/selenium/WebDriver : Unsupported major.minor version 52.0
+解决：使用jdk1.8
+
+Exception in thread "main" org.openqa.selenium.WebDriverException: Cannot find firefox binary in PATH. Make sure firefox is installed. OS appears to be: VISTA
+Build info: version: '3.7.1', revision: '8a0099a', time: '2017-11-06T21:01:39.354Z'
+System info: host: 'YIWAN-PC', ip: '192.168.220.1', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_45'
+Driver info: driver.version: FirefoxDriver
+解决，将firefox.exe配置到系统环境变量PATH中，将geckodriver也放到该目录下
+
+Exception in thread "main" org.openqa.selenium.NoSuchElementException: Unable to locate element: .//*[@id='loginName']
+解决：页面有frame,所以得先找到frame--》driver.switchTo().frame("frameid").findElement(By.xpat(""))

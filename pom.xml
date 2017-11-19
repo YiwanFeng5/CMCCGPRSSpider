@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>cn.fywspring</groupId>
+  <artifactId>spdierdemo.china10086</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>spdierdemo.china10086</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <junit.version>4.12</junit.version>
+    <jsoup.version>1.7.2</jsoup.version>
+    
+    <httpclient.version>4.5.2</httpclient.version>
+    <selenium-java.version>3.7.0</selenium-java.version>
+    <jackson.version>2.7.3</jackson.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <!-- Jsoup -->
+	<dependency>
+	    <groupId>org.jsoup</groupId>
+	    <artifactId>jsoup</artifactId>
+	    <version>${jsoup.version}</version>
+	</dependency>
+    
+    <!-- httpclient -->
+	<dependency>
+	    <groupId>org.apache.httpcomponents</groupId>
+	    <artifactId>httpclient</artifactId>
+	    <version>${httpclient.version}</version>
+	</dependency>
+	<!-- httpmime -->
+	<dependency>
+	    <groupId>org.apache.httpcomponents</groupId>
+	    <artifactId>httpmime</artifactId>
+	    <version>${httpclient.version}</version>
+	</dependency>
+	
+    
+    <!-- selenium-java -->
+	<dependency>
+	    <groupId>org.seleniumhq.selenium</groupId>
+	    <artifactId>selenium-java</artifactId>
+	    <version>${selenium-java.version}</version>
+	</dependency>
+    
+    <!-- jackson-core -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-core</artifactId>
+	    <version>${jackson.version}</version>
+	</dependency>
+    <!-- jackson-databind -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	    <version>${jackson.version}</version>
+	</dependency>
+    <!-- jackson-annotations -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-annotations</artifactId>
+	    <version>${jackson.version}</version>
+	</dependency>
+    
+  </dependencies>
+</project>
