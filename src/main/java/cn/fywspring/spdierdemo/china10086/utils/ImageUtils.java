@@ -1,4 +1,4 @@
-package cn.fywspring.spdierdemo.china10086.imageutils;
+package cn.fywspring.spdierdemo.china10086.utils;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
