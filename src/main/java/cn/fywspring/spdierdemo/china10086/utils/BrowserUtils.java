@@ -1,7 +1,5 @@
 package cn.fywspring.spdierdemo.china10086.utils;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -29,6 +27,11 @@ import redis.clients.jedis.Jedis;
 
 public class BrowserUtils {
 	static FirefoxDriver browser = null;
+	
+	/**
+	 * 登录的主要方法
+	 * @throws InterruptedException
+	 */
 	public  static void toLogin() throws InterruptedException {
 		browser = getBrowser();
 		// 连接url地址
@@ -100,6 +103,11 @@ public class BrowserUtils {
 		}
 	}
 
+	/**
+	 * 在没有出现验证码的情况下，一定是上次登录过了，并且记录了登录名
+	 * @return 返回登录之后的页面url
+	 * @throws InterruptedException
+	 */
 	public  static String login() throws InterruptedException {
 		String mycm_url;
 		WebElement login = browser.findElement(By.xpath(".//*[@id='loginBut']"));
@@ -109,6 +117,10 @@ public class BrowserUtils {
 		return mycm_url;
 	}
 
+	/**
+	 * 获取一个火狐浏览器对象
+	 * @return 返回该浏览器对象供后续模拟浏览器操作
+	 */
 	public  static FirefoxDriver getBrowser() {
 		// 使用本地浏览器
 		System.setProperty("webdriver.firefox.bin", PropertiesUtil.getProp("firefoxpath"));
@@ -193,6 +205,7 @@ public class BrowserUtils {
 //			System.out.println(time+"---"+addr+"---"+way+"---"+way+"---"+time_long+"---"+gprs+"---"+tcyh+"---"+fee);
 //			SaveDB.insertIntoDB(time, addr, way, time_long, gprs, tcyh, fee);
 //		}
+		System.out.println("本次一共爬取出"+resultsum+"条记录！");
 		browser.switchTo().defaultContent();
 		String oldUrl = browser.getCurrentUrl();
 		while (true) {
@@ -215,12 +228,14 @@ public class BrowserUtils {
 		browser.quit();
 	}
 	
+	static long resultsum = 0L;
 	public static void parseHtml(String html) {
 		Document doc = Jsoup.parse(html);
 		Jedis jedis = JedisUtils.getJedis();
 		synchronized(doc){
 			Element detail = doc.getElementById("DETAIL");	//详情tbody
-			int trsNum = (detail.childNodeSize())-1;
+			int trsNum = (detail.childNodeSize()-1)/2;
+			resultsum += trsNum;
 			for (int i = 0; i < trsNum-1; i++) {
 				String gprs_time = detail.child(i).child(0).text();
 				String gprs_addr = detail.child(i).child(1).text();
@@ -232,7 +247,7 @@ public class BrowserUtils {
 				
 				GPRS gprs = new GPRS(gprs_time,gprs_addr,gprs_way,gprs_long,gprs_sum,gprs_tcyh,gprs_fee);
 				String json = JSONObject.fromObject(gprs).toString();
-				System.out.println("[ "+(i+1)+" / "+trsNum+" ]---"+json);
+				System.out.println("[ "+(i+1)+" / "+trsNum+" ]---"+Thread.currentThread().getName()+"---"+json);
 				jedis.lpush("cmcc_gprs",json);
 			}
 		}

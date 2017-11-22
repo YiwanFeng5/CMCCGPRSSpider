@@ -2,6 +2,7 @@ package cn.fywspring.spdierdemo.china10086.utils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 
 import javax.sql.DataSource;
 
@@ -28,12 +29,14 @@ public class DBUtils {
 		return conn;
 	}
 	
-	public static void closeConn(Connection conn) {
+	public static void closeConn(Connection conn,Statement st) {
 		try {
+			if (st != null) {
+				st.close();
+			}
 			if (conn != null && conn.isClosed()) {
 				conn.close();
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -3,6 +3,7 @@ package cn.fywspring.spdierdemo.china10086.dao;
 
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import cn.fywspring.spdierdemo.china10086.module.GPRS;
@@ -28,7 +29,24 @@ public class SaveDB {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			DBUtils.closeConn(conn);
+			if (st!=null) {
+				try {
+					st.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					st = null;
+				}
+			}
+			if (conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					conn = null;
+				}
+			}
 		}
 	}
 	 
@@ -44,6 +62,8 @@ public class SaveDB {
 				System.out.println(gprs);
 				if (gprs != null) {
 					insertIntoDB(gprs);
+				} else {
+					break;
 				}
 			} else {
 				break;
